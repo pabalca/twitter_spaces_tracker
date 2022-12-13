@@ -4,13 +4,15 @@
 
 {% block content %}
 
+{% if username %}
 <h4>@{{ username }}</h4>
 <hr>
+{% endif %}
 
 {% if spaces  %}
-<div class="list-group">
+<div class="row d-flex justify-content-center">
   {% for space in spaces %}
-    <div onclick="location.href='{{  space.url }}'" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div onclick="location.href='{{  space.url }}'" class="list-group-item list-group-item-action flex-column align-items-start" style="max-width: 40rem;">
     <div class="d-flex w-100 justify-content-between">
       <h6 class="mb-1">{{ space.title }}</h6>
       <div>
