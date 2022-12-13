@@ -23,7 +23,7 @@ class Account(db.Model):
 class Space(db.Model):
     id = db.Column(db.String, primary_key=True, default=generate_uuid)
     account_id = db.Column(db.String, db.ForeignKey(Account.id))
-    account = db.relationship(Account, backref='spaces')
+    account = db.relationship(Account, backref='spaces', order_by='Space.scheduled_at.asc()')
     title = db.Column(db.String)
     url = db.Column(db.String)
     participant_count = db.Column(db.Integer)
