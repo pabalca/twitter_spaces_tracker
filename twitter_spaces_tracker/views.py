@@ -1,5 +1,6 @@
 from flask import abort, flash, redirect, render_template, session, url_for, request
 from sqlalchemy import or_, and_
+import hashlib
 
 from twitter_spaces_tracker import app
 from twitter_spaces_tracker.models import Account, Space, db
@@ -24,11 +25,16 @@ def accounts():
 
     if form.validate_on_submit():
         username = form.username.data.lower()
+        token = form.token.data
+        token_hash = hashed_string = hashlib.sha256(token.encode('utf-8')).hexdigest()
+        if token_hash != "e9bca65845c8cb6df8d558c81cc27c4ef84667a7304209bf3e7eb63959d7e6fc":
+            flash(f"Token is not valid. GTFO.")
+            return redirect(url_for("accounts"))
         a = Account(username=username)
         db.session.add(a)
         db.session.commit()
         flash(f"Your account <{username} is saved.")
-        return redirect(url_for("index"))
+        return redirect(url_for("accounts"))
     accounts = accounts.all()
 
     return render_template("index.html", accounts=accounts, form=form)

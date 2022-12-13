@@ -8,6 +8,7 @@
   {{ form.hidden_tag() }}
   <div class="form-row align-items-center">
     <div class="col-auto">{{ form['username'](class='form-control mb-2', placeholder="@username") }}</div>
+    <div class="col-auto">{{ form['token'](class='form-control mb-2', placeholder="token") }}</div>
     <div class="col-auto">{{ form['submit'](class='btn btn-success mb-2') }}</div>
   </div>
 </form>

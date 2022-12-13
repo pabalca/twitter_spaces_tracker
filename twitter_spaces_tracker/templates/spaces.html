@@ -17,9 +17,9 @@
       <h6 class="mb-1">{{ space.title }}</h6>
       <div>
         {% if space.ended_at %}
-        <small>{{ space.started_at.strftime('%A %d, %H:%M')}}</small>
+        <small>{{ space.started_at.strftime('%a %d %b, %H:%M')}}</small>
         {% else %}
-        <small class="text-info">{{ space.scheduled_at.strftime('%A %d, %H:%M')}}</small>
+        <small class="text-info">{{ space.scheduled_at.strftime('%a %d %b, %H:%M')}}</small>
         {% endif %}
       </div>
     </div>
