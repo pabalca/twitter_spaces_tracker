@@ -10,6 +10,6 @@ class SearchForm(FlaskForm):
 
 class AccountForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()], render_kw={'autofocus': True})
-    token = StringField("Token", validators=[DataRequired()])
+    token = PasswordField("Token", validators=[DataRequired()])
     submit = SubmitField("Track it!")
 

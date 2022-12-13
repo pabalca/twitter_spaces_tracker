@@ -64,12 +64,14 @@ def update():
                 space_fields=["title", "participant_count", "started_at", "ended_at", "scheduled_start"],
             )
 
-            # TODO:
-            # if state == ended, data is static, if not, update it.
-
-
-            # add if it does not exist already
-            if raw not in [s.url for s in spaces]:
+            s = Space.query.filter(Space.url == raw).first()
+            if s and s.state != "ended":
+                s.state = space.data.state
+                s.started_at = space.data.started_at
+                s.ended_at = space.data.ended_at
+                s.participant_count = space.data.participant_count
+                click.echo(raw + " updated")
+            elif not s:
                 s = Space(
                     account=account,
                     title=space.data.title,
@@ -82,7 +84,5 @@ def update():
                 )
                 db.session.add(s)
                 click.echo(raw + " added")
-            else:
-                click.echo(raw + " already exists")
 
     db.session.commit()

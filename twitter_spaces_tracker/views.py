@@ -51,7 +51,7 @@ def spaces(account_id):
 @app.route("/scheduled", methods=["GET"])
 def scheduled():
     spaces = (
-        Space.query.order_by(Space.started_at.desc())
+        Space.query.order_by(Space.scheduled_at.asc())
         .filter(Space.state == "scheduled")
         .all()
     )
