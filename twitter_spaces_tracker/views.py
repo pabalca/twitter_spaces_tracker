@@ -9,7 +9,7 @@ from twitter_spaces_tracker.forms import SearchForm, AccountForm
 @app.route("/", methods=["GET"])
 def index():
     spaces = (
-        Space.query.order_by(Space.scheduled_at.desc())
+        Space.query.order_by(Space.started_at.desc())
         .filter(Space.state != "scheduled")
         .limit(20)
         .all()
@@ -41,3 +41,12 @@ def spaces(account_id):
         "spaces.html", spaces=account.spaces, username=account.username
     )
 
+
+@app.route("/scheduled", methods=["GET"])
+def scheduled():
+    spaces = (
+        Space.query.order_by(Space.started_at.desc())
+        .filter(Space.state == "scheduled")
+        .all()
+    )
+    return render_template("spaces.html", spaces=spaces, username=None)
