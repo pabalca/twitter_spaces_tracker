@@ -43,8 +43,13 @@ def accounts():
 @app.route("/spaces/<account_id>", methods=["GET"])
 def spaces(account_id):
     account = Account.query.filter_by(id=account_id).first()
+    spaces = (
+        Space.query.order_by(Space.started_at.desc())
+        .filter_by(account_id = account_id)
+        .all()
+    )
     return render_template(
-        "spaces.html", spaces=account.spaces, username=account.username
+        "spaces.html", spaces=spaces, username=account.username
     )
 
 
