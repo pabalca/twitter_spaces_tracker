@@ -17,20 +17,24 @@
       <h6 class="mb-1">{{ space.title }}</h6>
       <div>
         {% if space.ended_at %}
-        <small>{{ space.started_at}}</small>
+        <small>{{ space.started_at.strftime('%A %d, %H:%M')}}</small>
         {% else %}
-        <small class="text-info">{{ space.scheduled_at}}</small>
+        <small class="text-info">{{ space.scheduled_at.strftime('%A %d, %H:%M')}}</small>
         {% endif %}
       </div>
     </div>
-    <ul>
+
     {% if space.ended_at %}
-    <small><li>Duration: {{ space.ended_at - space.started_at}}</li></small>
-    <small><li>Participants: {{ space.participant_count}}</li></small>
+    <small><p class="mb-1">{{ space.ended_at - space.started_at}}, {{ space.participant_count}} people</p></small>
     {% else %}
-    <small><li>State: {{ space.state}}</li></small>
+    <small><p class="mb-1">State: {{ space.state}}</p></small>
     {% endif %}
-    </ul>
+
+    {% if not username %}
+    <small><p class="mb-1">@{{space.account.username}}</p></small>
+    {% endif %}
+
+
   </div>
   {% endfor %}
 </div>
